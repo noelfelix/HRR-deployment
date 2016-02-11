@@ -53,15 +53,12 @@ module.exports = function(grunt) {
       }
     },
 
-    cssmin: {
+    cssmin : {
+      css:{
+        src: './public/style.css',
+        dest: './public/style.min.css'
+      }
     },
-
-    // cssmin : {
-    //   css:{
-    //     src: 'combined.css',
-    //     dest: 'combined.min.css'
-    //   }
-    // },
 
     watch: {
       scripts: {
@@ -119,10 +116,12 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
     'jshint',
     'concat',
-    'uglify'
-    // 'cssmin',
-    // 'mochaTest'
+    'uglify',
+    'cssmin',
+    'mochaTest'
   ]);
+
+  grunt.registerTask('heroku:production', 'build');
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
