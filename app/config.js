@@ -1,15 +1,20 @@
 //var Bookshelf = require('bookshelf');
 var path = require('path');
 var mongoose = require('mongoose');
-var uri = process.env.MONGOLAB_URI;
+var uri = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017';
 
 mongoose.connect(uri);
 var db = mongoose.connection;
 
-module.exports = db;
-
-var dbSchema = mongoose.Schema({
+db.on('error', function(err){
+  console.log(err);
 });
+
+db.once('open', function(){
+  console.log('MongoDB connected');
+})
+
+module.exports = db;
 
 
 // var db = Bookshelf.initialize({
